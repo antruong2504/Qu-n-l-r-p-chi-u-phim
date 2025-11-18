@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phim đang chiếu</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #f5f5f5;
+    }
+    header {
+        background: #e6f2ff;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #cce0ff;
+    }
+    .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #0099ff;
+    }
+    nav a {
+        margin: 0 15px;
+        text-decoration: none;
+        color: #000;
+        font-weight: 600;
+    }
+    .search-box {
+        margin-top: 10px;
+        text-align: right;
+        padding: 10px 20px;
+    }
+    .search-box input {
+        padding: 8px;
+        width: 250px;
+        border: 1px solid #999;
+        border-radius: 4px;
+    }
+    .search-box button {
+        padding: 8px 15px;
+        background: black;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    h2 {
+        padding-left: 30px;
+    }
+    .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+        padding: 20px 40px;
+    }
+    .movie {
+        background: white;
+        padding-bottom: 15px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .movie img {
+        width: 100%;
+        height: 330px;
+        object-fit: cover;
+        border-radius: 8px 8px 0 0;
+    }
+    .movie-title {
+        margin: 10px 0;
+        font-weight: bold;
+    }
+    .btn {
+        padding: 8px 18px;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">medpro</div>
+    <nav>
+        <a href="#">TRANG CHỦ</a>
+        <a href="#">PHIM</a>
+        <a href="#">LỊCH CHIẾU</a>
+        <a href="#">MUA VÉ</a>
+        <a href="#">GIỚI THIỆU</a>
+        <button>Đăng ký</button>
+        <button>Đăng nhập</button>
+    </nav>
+</header>
+
+<div class="search-box">
+    <input type="text" placeholder="Tìm kiếm phim...">
+    <button>Tìm kiếm</button>
+</div>
+
+<h2>PHIM ĐANG CHIẾU</h2>
+
+<div class="movie-grid">
+    <div class="movie">
+        <img src="https://cinematone.info/public/poster_002/191120153809_Mat-Biec-b_oCnlD.jpg" alt="Mắt Biếc">
+        <div class="movie-title">MẮT BIẾC</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://nguoinoitieng.tv/images/nnt/109/1/blwc.jpg" alt="Mưa Đỏ">
+        <div class="movie-title">MƯA ĐỎ</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://cinematone.info/public/9UUJAVSW2QXTVWUWQNJU/media/181019155748_TRANG-QUYNH-Teaser-Poster_6gW8i.jpg" alt="Trạng Quỳnh">
+        <div class="movie-title">TRẠNG QUỲNH</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://cdnmedia.baotintuc.vn/Upload/EqV5H9rWgvy9oNikwkHLXA/files/20022024-daophovapiano-1.jpg" alt="Đảo, Phở và Piano">
+        <div class="movie-title">ĐẢO, PHỐ VÀ PIANO</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://cdn.galaxycine.vn/media/2023/1/14/nha-ba-nu-1_1673711231096.jpg" alt="Nhà Bà Nữ">
+        <div class="movie-title">NHÀ BÀ NỮ</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://koicine.com/wp-content/uploads/2021/02/139978866_10159329588210625_1269432122292619391_o-1037x1536.jpg" alt="Bố Già">
+        <div class="movie-title">BỐ GIÀ</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://i.pinimg.com/736x/f1/ca/d5/f1cad58a9e54f35882ade51e497d2b17.jpg" alt="Đất Rừng Phương Nam">
+        <div class="movie-title">ĐẤT RỪNG PHƯƠNG NAM</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+
+    <div class="movie">
+        <img src="https://bazaarvietnam.vn/wp-content/uploads/2023/01/BZ-Nu-Chu-3.jpg" alt="Nữ Chủ">
+        <div class="movie-title">NỮ CHỦ</div>
+        <button class="btn">ĐẶT VÉ</button>
+    </div>
+</div>
+
+</body>
+</html> giúp tôi làm thêm các chức năng và chỉnh lại from của nó cho cân bằng đẹp hơn
+<script>
+const input = document.querySelector('.search-box input');
+input.addEventListener('keyup', function() {
+  const filter = input.value.toLowerCase();
+  document.querySelectorAll('.movie').forEach(movie => {
+    const title = movie.querySelector('.movie-title').innerText.toLowerCase();
+    movie.style.display = title.includes(filter) ? 'block' : 'none';
+  });
+});
+
+document.querySelectorAll('.btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    alert('Chức năng đặt vé đang được phát triển!');
+  });
+});
+</script>
+</body>
+</html>
