@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Phim - Medpro</title>
+    <style>
+        /* --- CSS Reset & Base --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        input, button {
+            font-family: inherit;
+            font-size: 100%;
+        }
+
+        /* --- Header (Giống hệt code trước) --- */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            border-bottom: 1px solid #f0f0f0;
+            background-color: #fff;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00a0e9;
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+        /* Đánh dấu trang "Mua Vé" là active */
+        .main-nav a.active {
+            font-weight: 700;
+            color: #222;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .auth-buttons .btn {
+            padding: 8px 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .auth-buttons .btn-login {
+            background-color: #4a4a4a;
+            color: #fff;
+            border-color: #4a4a4a;
+        }
+
+        /* --- Top Banner (Thanh xanh nhạt) --- */
+        .top-banner {
+            height: 90px;
+            background-color: #e9f5fe;
+        }
+
+        /* --- Main Content Title --- */
+        .page-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            margin: 30px 0;
+            text-transform: uppercase;
+        }
+
+        /* --- Bố cục Thanh toán (2 cột) --- */
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr; /* Cột trái cho poster, cột phải cho form */
+            gap: 30px;
+        }
+
+        /* --- Cột Trái: Chi tiết phim --- */
+        .movie-details {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .movie-details img {
+            display: block;
+            width: 100%;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-info h2 {
+            font-size: 22px;
+            color: #c90000; /* Màu đỏ cho tiêu đề phim */
+            margin-bottom: 15px;
+        }
+
+        .movie-meta p {
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
+        .movie-meta strong {
+            color: #000;
+            min-width: 80px;
+            display: inline-block;
+        }
+
+        .movie-rating {
+            font-size: 13px;
+            color: #f5a623; /* Màu cam cho đánh giá */
+            font-weight: 500;
+            text-align: right;
+            margin-top: 15px;
+        }
+
+        /* --- Cột Phải: Form thanh toán --- */
+        .payment-form-container h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Box Hóa đơn */
+        .bill-summary {
+            display: flex;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            overflow: hidden; /* Để bo góc cho hàng "Tổng cộng" */
+        }
+
+        .bill-left {
+            flex: 1;
+            padding: 20px;
+            border-right: 1px solid #ccc;
+        }
+
+        .bill-right {
+            flex: 1.2; /* Cho phần tóm tắt đơn hàng rộng hơn 1 chút */
+            padding: 20px 20px 0 20px; /* Không padding bottom để "Tổng cộng" sát viền */
+        }
+        
+        .bill-left p, .bill-right p {
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .bill-left strong, .bill-right strong {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .bill-right .line-item {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .bill-right .total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            
+            /* Dùng margin âm để kéo sát ra viền */
+            margin-left: -20px;
+            margin-right: -20px;
+            margin-top: 15px;
+            padding: 15px 20px;
+            border-top: 1px solid #ccc;
+        }
+
+        /* Form Phương thức thanh toán */
+        .payment-form {
+            margin-top: 20px;
+        }
+        
+        .payment-method {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .payment-method label {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .payment-method input[type="radio"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: #007bff; /* Đổi màu chấm radio thành xanh */
+        }
+        
+        /* Lưới nhập thông tin thẻ */
+        .card-details-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr; /* Cột 1 rộng, cột 2 hẹp */
+            gap: 15px 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Nút bấm */
+        .form-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .form-actions .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            min-width: 150px;
+        }
+
+        .form-actions .btn-confirm {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .form-actions .btn-cancel {
+            background-color: #e0e0e0;
+            color: #555;
+        }
+        
+        /* --- Responsive --- */
+        @media (max-width: 900px) {
+            .payment-layout {
+                grid-template-columns: 1fr; /* Chuyển thành 1 cột */
+            }
+            .movie-details {
+                /* Giới hạn chiều rộng và căn giữa poster */
+                max-width: 350px; 
+                margin: 0 auto;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .main-nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .bill-summary {
+                flex-direction: column; /* Hóa đơn xếp chồng lên nhau */
+            }
+            .bill-left {
+                border-right: none;
+                border-bottom: 1px solid #ccc;
+            }
+            .card-details-grid {
+                grid-template-columns: 1fr; /* Form thẻ 1 cột */
+            }
+            .form-actions {
+                flex-direction: column; /* Nút bấm xếp chồng */
+            }
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <a href="#" class="logo">medpro</a>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Trang chủ</a></li>
+                <li><a href="#">Phim</a></li>
+                <li><a href="#">Lịch chiếu</a></li>
+                <li><a href="#" class="active">Mua vé</a></li>
+                <li><a href="#">Giới thiệu</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-register">Đăng ký</button>
+            <button class="btn btn-login">Đăng nhập</button>
+        </div>
+    </header>
+
+    <div class="top-banner"></div>
+
+    <main class="container">
+
+        <h1 class="page-title">Thanh toán phim</h1>
+
+        <div class="payment-layout">
+
+            <aside class="movie-details">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0k7YGTYj-u1IFYVM5ly7n6HzGtTw5nUNC7w&s" alt="Na Tra 2: Ma Đồng Náo Hải Poster">
+                <div class="movie-info">
+                    <h2>Na Tra 2: Ma Đồng Náo Hải</h2>
+                    <div class="movie-meta">
+                        <p><strong>Trạng thái:</strong> Full Vietsub + Thuyết Minh + Lồng Tiếng</p>
+                        <p><strong>Đạo diễn:</strong> Tang Yu,</p>
+                        <p><strong>Thời lượng:</strong> 144 phút</p>
+                        <p><strong>Số tập:</strong> 1</p>
+                        <p><strong>Tình trạng:</strong> Hoàn thành</p>
+                    </div>
+                    <div class="movie-rating">
+                        ( 10 điểm / 1396 lượt )
+                    </div>
+                </div>
+            </aside>
+
+            <section class="payment-form-container">
+                
+                <h3>Hoá đơn thanh toán</h3>
+                <div class="bill-summary">
+                    <div class="bill-left">
+                        <strong>Thời gian chiếu</strong>
+                        <p>Ngày: 11/04/2025</p>
+                        <p>Giờ: 20:00</p>
+                        <p>Số ghế: B1, B2</p>
+                        <p>Phòng chiếu: P3</p>
+                    </div>
+                    <div class="bill-right">
+                        <strong>Tóm tắt đơn hàng</strong>
+                        <p class="line-item">
+                            <span>Giá vé:</span>
+                            <span>120.000đ</span>
+                        </p>
+                        <p class="line-item">
+                            <span>Phí dịch vụ:</span>
+                            <span>50.000đ</span>
+                        </p>
+                        <p class="line-item">
+                            <span>Thuế:</span>
+                            <span>5.000đ</span>
+                        </p>
+                        <p class="total">
+                            <span>Tổng cộng:</span>
+                            <span>175.000đ</span>
+                        </p>
+                    </div>
+                </div>
+
+                <h3>Phương thức thanh toán</h3>
+                <form class="payment-form">
+                    <div class="payment-method">
+                        <label for="credit-card">
+                            <input type="radio" id="credit-card" name="payment-method" value="card" checked>
+                            Thẻ tín dụng / thẻ ghi nợ (Credit Card / Debit Card)
+                        </label>
+                        <label for="momo">
+                            <input type="radio" id="momo" name="payment-method" value="momo">
+                            Ví MoMo (Chuyển khoản ngân hàng online / Banking)
+                        </label>
+                    </div>
+
+                    <div class="card-details-grid">
+                        <div class="form-group">
+                            <label for="card-name">Họ và tên:</label>
+                            <input type="text" id="card-name" value="Nguyen Van A">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-expiry">Ngày hết hạn:</label>
+                            <input type="text" id="card-expiry" placeholder="XX/XX">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number">Số thẻ:</label>
+                            <input type="text" id="card-number" placeholder="XXXX XXXX XXXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label for="card-cvv">Mã bảo mật:</label>
+                            <input type="text" id="card-cvv" placeholder="XXX">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-confirm">Xác nhận thanh toán</button>
+                        <button type="button" class="btn btn-cancel">Huỷ</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+
+</body>
+</html>
