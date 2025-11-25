@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Đặt vé xem phim</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f4f4;
+    }
+
+    /* === HEADER: NỀN TRẮNG NỔI LÊN === */
+    .header-wrapper {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .header-bar {
+      width: 1100px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 2px;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: bold;
+      color: #00a6e3;
+    }
+
+    .menu {
+      display: flex;
+      list-style: none;
+      gap: 28px;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .menu li { cursor: pointer; }
+
+    .auth-btns {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-outline, .btn-dark {
+      padding: 6px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-outline {
+      background: white;
+      border: 1px solid #3a3a3a;
+    }
+
+    .btn-dark {
+      background: #333;
+      color: white;
+      border: none;
+    }
+
+    .header-line {
+      width: 1100px;
+      height: 50px;
+      background: #e8f5ff;
+      border-top: 1px solid #d5e9ff;
+      margin: 0 auto 10px auto;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+
+    /* === MAIN WRAPPER === */
+    .main-wrapper {
+      width: 1100px;
+      margin: 20px auto 40px auto;
+    }
+
+    /* === MÀN HÌNH + GHẾ === */
+    .screen-bar {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 6px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+    }
+
+    .seat-area {
+      background: #ffffff;
+      border-radius: 6px;
+      border: 1px solid #ddd;
+      padding: 20px;
+    }
+
+    .seat-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .seat {
+      min-width: 58px;
+      height: 32px;
+      border-radius: 4px;
+      border: 1px solid #dcdcdc;
+      background: #f9f9f9;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .seat.selected {
+      border-color: #ff9800;
+      color: #ff9800;
+      background: #fffaf0;
+    }
+
+    .legend {
+      display: flex;
+      gap: 25px;
+      font-size: 12px;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .legend-box {
+      width: 18px;
+      height: 18px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+    }
+
+    .legend-box.selected {
+      border-color: #ff9800;
+      background: #fffaf0;
+    }
+
+    .divider-orange {
+      height: 4px;
+      background: #ff9800;
+      border-radius: 3px;
+      margin: 18px 0;
+    }
+
+    /* === DƯỚI: DỊCH VỤ + THÔNG TIN VÉ === */
+    .bottom-section {
+      display: grid;
+      grid-template-columns: 1.4fr 1.1fr;
+      gap: 18px;
+    }
+
+    /* DANH SÁCH DỊCH VỤ */
+    .service-panel {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #28a745;
+      padding: 12px 12px 16px 12px;
+    }
+
+    .service-panel-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #0b7030;
+      font-size: 16px;
+    }
+
+    .service-card {
+      display: grid;
+      grid-template-columns: 120px 1fr 90px;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+      margin-bottom: 8px;
+      background: #fff;
+    }
+
+    .service-img {
+      width: 120px;
+      height: 85px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .service-info-title {
+      font-weight: bold;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .service-info-desc {
+      font-size: 11px;
+      color: #555;
+      margin-bottom: 4px;
+    }
+
+    .service-info-price {
+      font-size: 12px;
+      color: #e53935;
+      font-weight: bold;
+    }
+
+    .service-btn {
+      align-self: center;
+      padding: 6px 10px;
+      font-size: 11px;
+      border-radius: 4px;
+      border: 1px solid #007bff;
+      background: #fff;
+      color: #007bff;
+      cursor: pointer;
+    }
+
+    /* THÔNG TIN VÉ + POSTER */
+    .summary-panel {
+      background: #fff;
+      border-radius: 6px;
+      border: 1px solid #ffc107;
+      padding: 12px 12px 16px 12px;
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 10px;
+    }
+
+    .poster-img {
+      width: 150px;
+      height: 220px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .movie-info-title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .movie-info-sub {
+      font-size: 11px;
+      color: #666;
+      margin-bottom: 6px;
+    }
+
+    .movie-showtime {
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .ticket-detail {
+      font-size: 12px;
+      border-top: 1px dashed #ddd;
+      padding-top: 8px;
+      margin-top: 4px;
+    }
+
+    .ticket-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .ticket-row-title { color: #555; }
+    .ticket-row-price { font-weight: bold; }
+
+    .total-row {
+      border-top: 1px solid #ddd;
+      margin-top: 8px;
+      padding-top: 8px;
+      font-weight: bold;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .ticket-note {
+      font-size: 11px;
+      color: #777;
+      margin-top: 6px;
+    }
+
+    .pay-btn {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px 0;
+      background: #ffc107;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER NỀN TRẮNG -->
+<div class="header-wrapper">
+  <div class="header-bar">
+    <div class="logo">medpro</div>
+
+    <ul class="menu">
+      <li>TRANG CHỦ</li>
+      <li>PHIM</li>
+      <li>LỊCH CHIẾU</li>
+      <li>MUA VÉ</li>
+      <li>GIỚI THIỆU</li>
+    </ul>
+
+    <div class="auth-btns">
+      <button class="btn-outline">Đăng ký</button>
+      <button class="btn-dark">Đăng nhập</button>
+    </div>
+  </div>
+
+  <div class="header-line"></div>
+</div>
+
+<!-- NỘI DUNG ĐẶT VÉ -->
+<div class="main-wrapper">
+
+  <!-- MÀN HÌNH + GHẾ -->
+  <div class="seat-area">
+    <div class="screen-bar">MÀN HÌNH</div>
+
+    <!-- Nhiều ghế hơn để đỡ thưa -->
+    <div class="seat-row">
+      <button class="seat">A1 - 70K</button>
+      <button class="seat">A2 - 70K</button>
+      <button class="seat">A3 - 70K</button>
+      <button class="seat">A4 - 70K</button>
+      <button class="seat">A5 - 70K</button>
+      <button class="seat">A6 - 70K</button>
+      <button class="seat">A7 - 70K</button>
+      <button class="seat">A8 - 70K</button>
+    </div>
+
+    <div class="seat-row">
+      <button class="seat">B1 - 70K</button>
+      <button class="seat selected">B2 - 70K</button>
+      <button class="seat selected">B3 - 70K</button>
+      <button class="seat">B4 - 70K</button>
+      <button class="seat">B5 - 70K</button>
+      <button class="seat">B6 - 70K</button>
+      <button class="seat">B7 - 70K</button>
+      <button class="seat">B8 - 70K</button>
+    </div>
+
+    <div class="seat-row">
+      <button class="seat">C1 - 70K</button>
+      <button class="seat">C2 - 70K</button>
+      <button class="seat">C3 - 70K</button>
+      <button class="seat">C4 - 70K</button>
+      <button class="seat">C5 - 70K</button>
+      <button class="seat">C6 - 70K</button>
+      <button class="seat">C7 - 70K</button>
+      <button class="seat">C8 - 70K</button>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-box"></div> Ghế đang trống
+      </div>
+      <div class="legend-item">
+        <div class="legend-box selected"></div> Ghế đang chọn
+      </div>
+    </div>
+  </div>
+
+  <div class="divider-orange"></div>
+
+  <!-- DƯỚI: DỊCH VỤ + THÔNG TIN VÉ -->
+  <div class="bottom-section">
+
+    <!-- DANH SÁCH DỊCH VỤ CÓ ẢNH -->
+    <div class="service-panel">
+      <div class="service-panel-title">Danh Sách Dịch Vụ</div>
+
+      <div class="service-card">
+        <img class="service-img"
+             src="https://xuongin.com/assets/images/popcorn-bag/hop-giay-dung-bap-rang-bo.jpg"
+             alt="Bắp rang bơ">
+        <div>
+          <div class="service-info-title">Bắp rang bơ</div>
+          <div class="service-info-desc">Bắp rang bơ nóng hổi, giòn rụm, thơm lừng.</div>
+          <div class="service-info-price">Giá: 45.000 đ</div>
+        </div>
+        <button class="service-btn">Thêm dịch vụ</button>
+      </div>
+
+      <div class="service-card">
+        <img class="service-img"
+             src="https://tse1.mm.bing.net/th/id/OIP.16Gbo7RuXEKB5HQ4RffozgHaEK?rs=1&pid=ImgDetMain&o=7&rm=3"
+             alt="Nước ngọt">
+        <div>
+          <div class="service-info-title">Nước ngọt Coca-Cola</div>
+          <div class="service-info-desc">Coca-Cola mát lạnh, giải khát tức thì.</div>
+          <div class="service-info-price">Giá: 30.000 đ</div>
+        </div>
+        <button class="service-btn">Thêm dịch vụ</button>
+      </div>
+
+      <div class="service-card">
+        <img class="service-img"
+             src="https://images.pexels.com/photos/3756523/pexels-photo-3756523.jpeg?auto=compress&cs=tinysrgb&w=400"
+             alt="Combo Bắp + Nước">
+        <div>
+          <div class="service-info-title">Combo Bắp + Nước</div>
+          <div class="service-info-desc">Tiết kiệm hơn khi mua combo bắp + nước.</div>
+          <div class="service-info-price">Giá: 70.000 đ</div>
+        </div>
+        <button class="service-btn">Thêm dịch vụ</button>
+      </div>
+
+      <div class="service-card">
+        <img class="service-img"
+             src="https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=400"
+             alt="Khoai tây chiên">
+        <div>
+          <div class="service-info-title">Khoai tây chiên</div>
+          <div class="service-info-desc">Khoai tây chiên vàng giòn, ăn kèm rất đã.</div>
+          <div class="service-info-price">Giá: 35.000 đ</div>
+        </div>
+        <button class="service-btn">Thêm dịch vụ</button>
+      </div>
+
+    </div>
+
+    <!-- THÔNG TIN VÉ + POSTER -->
+    <div class="summary-panel">
+      <img class="poster-img"
+           src="https://images.pexels.com/photos/799133/pexels-photo-799133.jpeg?auto=compress&cs=tinysrgb&w=500"
+           alt="Poster phim">
+      <div>
+        <div class="movie-info-title">Yadang: Ba Mẹ Lật Kèo</div>
+        <div class="movie-info-sub">Tâm lý, gia đình • 2D • Phụ đề Việt</div>
+
+        <div class="movie-showtime">
+          Suất chiếu: 18:30 - Thứ 7, ngày 17/12/2025<br>
+          Phòng: 3D - Rạp Medpro
+        </div>
+
+        <div class="ticket-detail">
+          <div class="ticket-row">
+            <span class="ticket-row-title">Ghế B2, B3</span>
+            <span class="ticket-row-price">2 x 70.000 đ</span>
+          </div>
+
+          <div class="ticket-row">
+            <span class="ticket-row-title">Bắp rang bơ</span>
+            <span class="ticket-row-price">45.000 đ</span>
+          </div>
+
+          <div class="ticket-row">
+            <span class="ticket-row-title">Nước ngọt</span>
+            <span class="ticket-row-price">30.000 đ</span>
+          </div>
+
+          <div class="total-row">
+            <span>Tổng cộng</span>
+            <span>215.000 đ</span>
+          </div>
+
+          <div class="ticket-note">
+            Vui lòng kiểm tra thông tin ghế và suất chiếu trước khi thanh toán.
+          </div>
+
+          <button class="pay-btn">Thanh Toán</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
