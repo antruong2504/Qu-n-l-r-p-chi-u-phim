@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mua dịch vụ - Medpro</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #ffffff;
+        }
+
+        /* Header */
+        .header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .logo {
+            font-size: 34px;
+            font-weight: bold;
+            color: #00a6ff;
+        }
+
+        .menu {
+            display: flex;
+            gap: 30px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+        }
+
+        .menu-button {
+            display: flex;
+            gap: 10px;
+        }
+
+        .menu-button button {
+            padding: 6px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-grey {
+            background: #f2f2f2;
+            border: 1px solid #ccc;
+        }
+
+        .btn-dark {
+            background: black;
+            border: none;
+            color: white;
+        }
+
+        /* Blue bar */
+        .top-banner {
+            height: 80px;
+            background: #dff1ff;
+        }
+
+        /* Main content */
+        .container {
+            width: 900px;
+            margin: 40px auto;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            margin-bottom: 15px;
+        }
+
+        input, select {
+            padding: 8px;
+            width: 240px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+
+        button.action {
+            padding: 8px 20px;
+            border-radius: 4px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-blue {
+            background: #1e73ff;
+        }
+
+        .btn-green {
+            background: #2ea843;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            background: #fafafa;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        th {
+            background: #ededed;
+            text-align: left;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">medpro</div>
+
+        <div class="menu">
+            <a href="#">TRANG CHỦ</a>
+            <a href="#">PHIM</a>
+            <a href="#">LỊCH CHIẾU</a>
+            <a href="#">MUA VÉ</a>
+            <a href="#">GIỚI THIỆU</a>
+        </div>
+
+        <div class="menu-button">
+            <button class="btn-grey">Đăng ký</button>
+            <button class="btn-dark">Đăng nhập</button>
+        </div>
+    </div>
+
+    <!-- BLUE TOP BAR -->
+    <div class="top-banner"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <div class="title">Mua Dịch Vụ (Bắp, Nước, Combo)</div>
+
+        <div class="form-row">
+            <label>Tên dịch vụ</label>
+            <input id="service" value="Bắp rang" />
+        </div>
+
+        <div class="form-row">
+            <label>Số lượng</label>
+            <input id="qty" type="number" min="1" value="2" style="width:80px" />
+
+            <label style="margin-left:30px;">Đơn giá</label>
+            <input id="price" value="50,000" />
+        </div>
+
+        <div class="form-row">
+            <label>Thành tiền</label>
+            <input id="total" value="100,000" readonly />
+        </div>
+
+        <button class="action btn-blue" id="addBtn">Thêm</button>
+        <button class="action btn-green" id="payBtn">Thanh toán</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Tên dịch vụ</th>
+                    <th class="right">Số lượng</th>
+                    <th class="right">Đơn giá</th>
+                    <th class="right">Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody id="list">
+                <tr>
+                    <td>Bắp rang</td>
+                    <td class="right">2</td>
+                    <td class="right">50,000</td>
+                    <td class="right">100,000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const nf = new Intl.NumberFormat('vi-VN');
+
+        const qty = document.getElementById("qty");
+        const price = document.getElementById("price");
+        const total = document.getElementById("total");
+
+        function parseMoney(v) {
+            return Number(v.replace(/[^0-9]/g, ""));
+        }
+
+        function recalc() {
+            const q = Number(qty.value);
+            const p = parseMoney(price.value);
+            total.value = nf.format(q * p);
+        }
+
+        qty.addEventListener("input", recalc);
+        price.addEventListener("input", recalc);
+
+        // Nút Thêm
+        document.getElementById("addBtn").addEventListener("click", () => {
+            const name = document.getElementById("service").value;
+            const q = qty.value;
+            const p = price.value;
+            const t = total.value;
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${name}</td>
+                <td class="right">${q}</td>
+                <td class="right">${p}</td>
+                <td class="right">${t}</td>
+            `;
+
+            document.getElementById("list").appendChild(tr);
+        });
+
+        // Thanh toán demo
+        document.getElementById("payBtn").addEventListener("click", () => {
+            alert("Thanh toán thành công!");
+        });
+    </script>
+
+</body>
+</html>
