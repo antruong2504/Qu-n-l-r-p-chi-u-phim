@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thông tin phim</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f5f5;
+    }
+
+    /* Header */
+    header {
+        background: white;
+        padding: 15px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+    header img {
+        height: 45px;
+    }
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #0099ff;
+    }
+
+    .menu {
+        display: flex;
+        gap: 25px;
+        font-size: 15px;
+    }
+
+    .menu a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    .search-box input {
+        padding: 7px 10px;
+        width: 220px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-box button {
+        padding: 7px 15px;
+        background: #0a79ff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* Main container */
+    .container {
+        width: 85%;
+        margin: 40px auto;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 32px;
+        letter-spacing: 2px;
+    }
+
+    .content {
+        display: flex;
+        gap: 40px;
+    }
+
+    /* Poster */
+    .poster img {
+        width: 260px;
+        border-radius: 6px;
+    }
+
+    /* Right side */
+    .info h2 {
+        margin: 0;
+        font-size: 28px;
+    }
+
+    .rating {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        gap: 5px;
+    }
+
+    .btn {
+        margin-top: 15px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn button {
+        padding: 9px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+        background: #315efb;
+    }
+
+    .section-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    /* Rap chiếu logo */
+    .cinema-list img {
+        height: 35px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+
+    /* Diễn viên */
+    .actor-list {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .actor {
+        text-align: center;
+        width: 90px;
+    }
+
+    .actor img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+
+    /* Đặt vé */
+    .book-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #1e8bff;
+        color: white;
+        border-radius: 8px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="https://inside.medpro.com.vn/backend/login/img/logo.svg" alt="logo">
+    <div class="menu">
+        <a href="#">TRANG CHỦ</a>
+        <a href="#">PHIM</a>
+        <a href="#">LỊCH CHIẾU</a>
+        <a href="#">MUA VÉ</a>
+        <a href="#">GIỚI THIỆU</a>
+    </div>
+    <div class="search-box">
+        <input type="text" placeholder="Tìm kiếm phim...">
+        <button>Tìm kiếm</button>
+    </div>
+</header>
+
+<div class="container">
+    <h1>THÔNG TIN PHIM</h1>
+
+    <div class="content">
+        
+        <!-- POSTER -->
+        <div class="poster">
+            <img src="https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/m/a/main_tctk_social.jpg" alt="poster">
+            
+            <p class="section-title">Rạp đang chiếu</p>
+            <div class="cinema-list">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/CGV_Cinemas.svg/1200px-CGV_Cinemas.svg.png">
+                <img src="https://logodix.com/logo/2032965.jpg">
+                <img src="https://hkd.com.vn/ckfinder/userfiles/images/DU%20AN/26-3.png">
+            </div>
+
+            <p class="section-title">Diễn viên</p>
+
+            <div class="actor-list">
+                <div class="actor">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/TH%C3%81I_H%C3%92A_2025.jpg/500px-TH%C3%81I_H%C3%92A_2025.jpg">
+                    <p>Thái Hòa</p>
+                </div>
+                <div class="actor">
+                    <img src="https://media.yeah1.com/files/tothucvy/2024/08/12/kaity-nguyen-2-172951.jpg">
+                    <p>Kaity Nguyễn</p>
+                </div>
+                <div class="actor">
+                    <img src="https://www.elleman.vn/app/uploads/2024/02/29/231055/dien-vien-xuan-phuc-_elleman-3-768x428.jpg">
+                    <p>Xuân Phúc</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="info">
+            <h2>Tử Chiến Trên Không</h2>
+
+            <div class="rating">
+                <span style="background:#ffcc00;padding:4px 8px;border-radius:5px;">16+</span>
+                ⭐ 9.6/10
+            </div>
+
+            <p>Hành động, tội phạm • 1 giờ 58 phút</p>
+
+            <div class="btn">
+                <button>Xem trailer</button>
+                <button>Chia sẻ</button>
+            </div>
+
+            <p class="section-title">Nội dung phim</p>
+
+            <p>
+                Tử Chiến Trên Không lấy cảm hứng từ những vụ cướp máy bay chấn động Việt Nam thời hậu chiến. 
+                Phim kể về Bình, một chuyên viên đào tạo Cảnh vệ Hàng không, đang trên chuyến bay đến TP. Hồ Chí Minh.
+            </p>
+
+            <p><b>Ngày phát hành:</b> 19/09/2025</p>
+            <p><b>Đạo diễn:</b> Lê Nhật Quang</p>
+            <p><b>Định dạng:</b> 2D / Digital / IMAX</p>
+            <p><b>Quốc gia:</b> Việt Nam</p>
+            <p><b>Ngôn ngữ:</b> Tiếng Việt - Phụ đề Anh</p>
+            <p><b>Phân loại:</b> C16 - Phim dành cho 16+</p>
+
+            <a class="book-btn">Đặt vé ngay</a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
